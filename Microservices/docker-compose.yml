@@ -1,0 +1,36 @@
+services:
+  user-service:
+    build:
+      context: ./user-service
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+  product-service:
+    build:
+      context: ./product-service
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+  order-service:
+    build:
+      context: ./order-service
+    ports:
+      - "3002:3002"
+    networks:
+      - app-network
+  gateway-service:
+    build:
+      context: ./gateway-service
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+    depends_on:
+      - user-service
+      - product-service
+      - order-service
+networks:
+  app-network:
+    driver: bridge
